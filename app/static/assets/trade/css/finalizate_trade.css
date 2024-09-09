@@ -1,0 +1,139 @@
+:root{
+    --color-1: #91BF84;
+    --color-2: #F2E9D8;
+    --color-3: #ff9e4f;
+    --color-4: #D99066;
+    --color-5: #91BF84;
+    
+    
+    --icon-color: #274360;
+  
+  
+    --shadow:   
+        0 0px 15px 0 rgba(0, 0, 0, 0.384),
+        0 2px 10px 0 rgba(0, 0, 0, 0.486); 
+  }
+  .finalizate-section{
+    width: 100vw;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+.finalizate-container{
+  height: auto;
+}
+
+  .trade-card-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    
+  }
+  .trade-item{
+    max-width: 200px;
+  }
+
+  .trade-container-item{
+    background-color: white;
+    min-height: 80dvh;
+    width: 90vw;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-shadow: var(--shadow);  
+    padding: 50px;
+    padding-top: 50px;
+
+}
+.form-shipping{
+  width: 50vw;
+}
+
+.shipping_inputs{
+  display: flex;
+  width: 100vw;
+  align-self: center;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.btn-verify-shipping{
+  margin-top: 10px;
+  width: 50vw;                                          
+}
+.user-andress-list{
+  list-style: none;
+  font-weight: bold;
+}
+.points-svg-container{
+  width: auto;
+  height: 50px;
+}
+.bi-cash-coin, .bi-check-circle{
+  width: auto;
+  height: 8dvh;
+  color: #28a745;
+}
+.points-text{
+  color: #28a745;
+}
+.destinatario-container{
+  margin-bottom: 50px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+.item-finalizate{
+  opacity: 0.6;
+}
+.finaliza-title{
+  color: var(--color-1);
+  font-weight: 800;
+}
+.tracking-container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.tracking-info-text{
+  width: 100%;
+  text-align: center;
+}
+.trade-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-tracking{
+  width: 50%;
+  height: 80px;
+  background-image: linear-gradient(to bottom, var(--color-3), var(--color-4));
+  color: white;
+}
+.btn-tracking:hover{
+  background-image: linear-gradient(to bottom, #ff8018, #d77b46);
+  color: white;
+
+}
+@media (max-width: 800px) {
+  .trade-item-box{
+      width: 30%; 
+      margin-bottom: 50px;
+  }
+  .arrow-trade-icon{
+    width: 50%;
+  }
+}

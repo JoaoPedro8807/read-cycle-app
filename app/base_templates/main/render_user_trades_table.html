@@ -1,0 +1,64 @@
+{% load is_model_object %}
+{% load static %}
+<div class="table-container">
+<table class="table table-borderless datatable datatable-table">
+    <thead>
+        <tr>
+            <th scope="col" data-sortable="true" style="width: 10.78838174273859%;" class="trade-index">#</th>
+            <th scope="col" data-sortable="true" style="width: 11.120331950207468%;" class="trade-req">Requisitante</th>
+            <th scope="col" data-sortable="true" style="width: 19.7925311.2033195%;">Livro</th>
+            <th scope="col" data-sortable="true">Envio</th>
+            <th scope="col" data-sortable="true" style="width: 11.120331950207468%;">Troca por</th>
+            <th scope="col" data-sortable="true" class="red" style="width: 14.854771784232366%;">Status</th>
+        </tr>
+    </thead>
+    <tbody class="datatable-body">
+        {% for item in itens %}
+            {% with trade=item.0 payment=item.1 shipping=item.2 %}
+                <tr class="mb-1 trades-table-row" data-index="{{ forloop.counter0 }}">
+                    <td scope="row" class="trade-index">
+                        <a href="#"># {{ forloop.counter }}</a>
+                    </td>
+                    <td>{{ trade.user.full_name }}</td>
+                    <td>
+                        <a href="{% url 'book:book-detail-page' trade.book.id %}" class="text profile-book-title">{{ trade.book }}</a>
+                    </td>
+                    <td>
+                        <p class="badge badge-{{shipping.get_shipping_code}}">{{ shipping.get_shipping_name }}</p>
+                    </td>
+                    <td>{{ payment.get_description }}</td>
+                    <td class="status-{{ trade.status }}">
+                        <span class="badge bg-{{ trade.status }}">{{ trade.get_status_display }}</span>
+                    </td>
+                    <td class="actions">
+                        {% if trade.status == 'AC' or trade.status == 'FS' %}
+                            {% if payment.trade_value|is_object %}
+                                <a href="{% url 'trade:finalizate-trade' trade.id %}"><i class="fa-solid fa-up-right-from-square item-edit edit-btn" id="btn-go-to-trade"></i></a>
+                            {% else %}
+                                <a href="{% url 'trade:requests-trades-user' %}"><i class="fa-solid fa-up-right-from-square item-edit edit-btn" id="btn-go-to-trade"></i></a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'trade:requests-trades-user' %}"><i class="fa-solid fa-up-right-from-square item-edit edit-btn" id="btn-go-to-trade"></i></a>
+                        {% endif %}
+                        <i class="fa-solid fa-trash item-edit trash-btn" id="btn-excluir"></i>
+                        <dialog id="dialog">
+                            <h3>Desistir da troca de <strong>{{ trade.book|upper }}</strong>?</h3>
+                            <p class="title-detail">Ao desistir, seus pontos ou livro retornam</p>
+                            <div class="dialog-btns">
+                                <button class="btn btn-secondary dialog-btn dialog-cancel-btn">Cancelar</button>
+                                <button class="btn btn-danger dialog-btn dialog-confirm-btn"
+                                    hx-delete="{% url 'trade:delete-trade' trade.id %}"
+                                    hx-target=".datatable-table"
+                                    hx-headers='{"X-TEMPLATE": "profile", "X-CSRFToken": "{{ csrf_token }}"}'
+                                    hx-swap="innerHTML">Excluir</button>
+                            </div>
+                        </dialog>
+                    </td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<script src="{% static 'assets/book/js/book.js' %}"></script>
+<script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>

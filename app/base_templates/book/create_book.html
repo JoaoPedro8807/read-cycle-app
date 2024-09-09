@@ -1,0 +1,95 @@
+{% extends "global/base.html" %}
+{% load static %}
+{% block content %}
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static "assets/book/css/teste.css" %}">
+<link rel="stylesheet" href="{% static "assets/book/css/book.css" %}">
+
+<script src="https://unpkg.com/htmx.org@1.8.4/dist/htmx.min.js"></script> 
+
+<script src="{% static 'assets/book/js/book.js' %}"></script>
+<script src="{% static "assets/js/message.js" %}"></script>
+
+
+<section class="ftco-section">
+    <div class="container book-main-container"> 
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Registro de livro</h2>
+            </div>
+        </div>
+        {% include "book/book_message.html" %}
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="col-md-7 d-flex align-items-stretch">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Read Cycle</h3>
+                                <div id="form-message-warning" class="mb-4"></div> 
+
+                
+                                    <form 
+                                    method="POST" 
+                                    enctype="multipart/form-data"
+                                    hx-post="{% url 'book:book-create-page' %}" 
+                                    hx-target=".res-info-container" 
+                                    hx-swap="innerHTML"
+                                    >
+                                        {% csrf_token %}
+                                        <div class="formbold-form-title">
+                                        <h2 class="">Registre seu livro</h2>
+                                        <p>
+                                            Ao registrar seu livro, usuários poderão ve-lo em pedir para troca-lo
+                                        </p>
+                                        </div>
+                                        <div class="inputs-container"> <!-- mudar o flex aqui para os outros forms -->
+                                            
+                                        {% for field in form %}
+                                            <div class="formbold-input-flex">
+                                                {{ field.label_tag }}
+                                                
+                                                </label>
+                                                {% if field.help_text %}
+                                                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                                                {% endif %}
+                                                {{ field }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                
+                                
+                                        <div class="formbold-checkbox-wrapper">
+                                        <label for="supportCheckbox" class="formbold-checkbox-label">
+                                            <div class="formbold-relative">
+                                            <input
+                                                type="checkbox"
+                                                id="supportCheckbox"
+                                                class="formbold-input-checkbox"
+                                                
+                                            />
+                                            
+                                            </div>
+                                        </label>
+                                        </div>
+                                
+                                        <button class="formbold-btn">Pesquisar</button>
+                                    </form>
+
+                            </div>
+                        </div>
+                        <div class="col-md-5 d-flex align-items-stretch res-container">
+                            <div class="info-wrap w-100 p-lg-5 p-4 res-info-container">
+               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

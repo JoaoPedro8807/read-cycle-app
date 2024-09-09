@@ -1,0 +1,163 @@
+:root{
+    --color-1: #91BF84;
+    --color-2: #F2E9D8;
+    --color-3: #ff9e4f;
+    --color-4: #D99066;
+    --color-5: #91BF84;
+    --color-6: #777;
+    
+  
+    --icon-color: #274360;
+  
+  
+    --shadow: 
+        0 0px 15px 0 rgba(0, 0, 0, 0.384),
+        0 2px 10px 0 rgba(0, 0, 0, 0.486); 
+  }
+  
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-primary {
+  font-family: "Lato", sans-serif;
+  color: #777;
+}
+.grid-item{
+    margin-bottom: 120px; 
+}
+.grid-container-row{
+    flex-wrap: nowrap;           
+
+}
+.book-list-infos-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 50px;
+}
+.infos-left-side-item{
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.book-list-infos-list{
+    list-style: none;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.item-edit-container{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.item-edit{
+    font-size: 1.3em;
+    cursor: pointer;
+}
+.book-list-item{
+    padding: 5px;
+}
+.title-detail{
+    font-style: italic;
+    font-size: 0.9em;
+    font-family: "Lato", sans-serif;
+    color: #777;
+}
+.book-authors{
+    font-size: 1.3;
+    font-style: italic;
+    font-weight: 500;
+}
+.book-description{
+    max-height: 100px; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal; 
+}
+.book-image{
+    width: auto;
+    height: auto;
+}
+#btn-excluir{
+    
+    color: #580100;
+
+}
+#btn-editar{
+    color: var(--color-3);
+}
+dialog::backdrop{
+    background-color: rgba(0, 0, 0, 0.678);;
+}
+dialog{
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.678);
+    width: 80%;
+}
+
+dialog p, h3{
+    text-align: center;
+}
+
+.availability-icon{
+    text-align: end;
+    color: #91BF84;
+    display: flex;
+    align-items: end;
+    font-size: 1.3em;
+}
+.dialog-btns{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.formbold-btn{
+font-size: 16px;
+border-radius: 5px;
+padding: 14px 25px;
+border: none;
+font-weight: 500;
+background-color: var(--color-1);
+color: white;
+cursor: pointer;
+margin-top: 25px;
+}
+.formbold-btn:hover {
+box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.item-disponivel{
+    color: var(--color-1);
+}
+
+.item-indisponivel{
+    color: var(--color-3);
+
+}
+@media (max-width: 763px) {
+    .breadcrumbs h2 {
+      margin: 0 0 10px 0;
+    }
+    .grid-container-row{
+        flex-wrap: wrap;
+    }
+    .item-edit-container{
+        width: 100dvw;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+    }
+
+  }

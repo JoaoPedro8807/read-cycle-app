@@ -1,0 +1,377 @@
+
+:root{
+  --color-1: #91BF84;
+  --color-2: #F2E9D8;
+  --color-3: #ff9e4f;
+  --color-4: #D99066;
+  --color-5: #91BF84;
+  
+
+  --icon-color: #274360;
+  --font-default: "Lato", sans-serif;
+
+  --shadow: 
+      0 0px 15px 0 rgba(0, 0, 0, 0.384),
+      0 2px 10px 0 rgba(0, 0, 0, 0.486); 
+}
+
+#main{
+  background-color: #f6f9ff;
+
+}
+.profile-section{
+  background-color: #f6fafa;
+  padding: 0px;
+}
+.trade-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.points-container, .info-card{
+  border-radius: 20px;
+}
+
+.book-title{
+  color: #777;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+
+}
+
+.user-points-container .user-points-text{
+  font-size: 1.5em;
+  color: #28a745;
+}
+.bi-cash-coin{
+  width: 100px;
+  height: 50px;
+  color: #28a745;
+  background-color: #e0f8e9;
+  border-radius: 10px;
+}
+.bi-book{
+  width: 100px;
+  height: 50px;
+  color: var(--color-3);
+  background-color: var(--color-2);
+  border-radius: 10px;
+}
+.user-points-container .user-books-count{
+  font-size: 1.5em;
+  color: var(--color-3);
+}
+.body-text{
+  text-align: center;
+}
+
+.trade-form{
+  display: flex;
+  flex-direction: column;
+}
+.trade-form .form-group{
+  padding-bottom: 50px;
+}
+
+.trade-index-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.img-book-detail-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.book-detail-image{
+  width: auto;
+}
+
+.trades-container{
+  width: auto;
+  background-color: white;
+  min-height: calc(50dvh);
+  padding: 20px;
+  margin-top: 50px;
+  border-radius: 20px;
+  margin-bottom: 100px;
+
+}
+.datatable-table{
+  overflow-x: auto; /* Habilita   o scroll horizontal quando necessário */
+  -webkit-overflow-scrolling: touch; /* Suporte para rolagem suave em dispositivos iOS */
+    border: 1px solid #ddd; /* Opcional: borda para o contêiner */
+}
+.infos-container{
+  width: 100%;
+  min-height: calc(100dvh - 248px);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/*classes de status do app  */
+
+.bg-OP{
+    color: #fff;
+    background-color: #6c757d;
+}
+
+.bg-AC{
+  color: #fff;
+  background-color: #28a745;
+}
+.bg-FS{
+  color: #212529;
+  background-color: #ffc107;
+}
+.bg-FN{
+  color: #fff;
+  background-color: #007bff
+}
+
+.badge-CR{
+  font-family: var(--font-default);
+  font-size: .9em;
+  font-weight: bold;
+  color: #0033a0; /* Azul escuro similar ao usado pelos Correios */
+  background-color: #f7c600; /* Amarelo similar ao usado pelos Correios */
+  text-align: center;
+}
+#btn-go-to-trade{
+  color: var(--color-3);
+}
+td{
+  text-align: center;
+  margin-top: 50px;
+}
+.actions{
+  margin-top: 0px;
+}
+.actions{
+  right: 0;
+  top: 50%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 50px; 
+  padding: 5px; 
+  border-left: 1px solid #ddd; 
+  border-radius: 5px; 
+}
+.profile-book-title{
+  color: var(--color-5);
+  font-weight: 800;
+  font-size: 1.1em;
+}
+.trades-table-row{
+  margin-bottom: 20px;
+  border-block-end: 1px solid rgba(162, 162, 162, 0.665);
+}
+
+.datatable-table{
+  border-spacing: 0 50px;
+  border-collapse: collapse;
+}
+
+i{
+  font-size: 1.4em;
+}
+
+#btn-excluir{
+  cursor: pointer;
+}
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; 
+  margin-bottom: 20px; 
+  overflow-y: auto;
+  max-height: 500px;
+}
+.table {
+  width: 100%; 
+  min-width: 600px; 
+}
+.user-register-container{
+  width: 90%;
+  display: flex;
+  
+}
+.user-stats-info{
+  width: 30%;
+}
+.form-container{
+  width: 70%;
+}
+
+.user-info-container, .user-info-section{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-item {
+  margin-bottom: 1rem;
+}
+
+.profile-item label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.profile-item input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+.profile-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border: 2px solid #007bff; 
+}
+
+.profile-picture img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; 
+}
+.email-field{
+  width: auto;  
+}
+.count-trade-text{
+  font-weight: 800;
+  font-size: 1.8em;
+}
+.user-request-trade-li{
+  color: var(--icon-color);
+}
+.user-trade-accepted-li{
+  color: var(--color-5);
+}
+.user-trade-canceled-li{
+  color: red;
+}
+
+@media (min-width: 1024px) {
+  .trades-container{
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  
+  .trades-container{
+    width: 100%;
+    padding: 0px;                        
+  }  
+  .profile-book-title{
+    color: var(--color-5);  
+    font-weight: 800;
+    font-size: 1em;
+  }
+  .datatable-table{
+    overflow-x: scroll;
+    font-size: 0.9em;
+    border-collapse: collapse;
+  }
+
+  .trade-index{
+    display: none;
+  }
+
+  .actions{
+    gap: 50px;
+    align-items: center;
+
+  }
+  
+  thead,
+  tbody,
+  th,
+  td{
+      width: 100%;
+
+  .datatable-table td {
+      position: relative;
+      padding-left: 50%;
+      text-align: right;
+  }
+
+  .datatable-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 10px;
+      white-space: nowrap;
+      font-weight: bold;
+      text-align: left;
+  }
+
+  .datatable-table .actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+      text-align: center;
+      width: 100%;
+      padding: 10px 0;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      z-index: 1;
+  }
+
+  .datatable-table td.actions {
+      position: static;
+      padding-left: 0;
+      text-align: left;
+      background: #fff;
+  }
+}
+  .user-register-container{
+    width: 100%;
+  };
+
+  section{
+    padding: 0px;
+  }
+  input, .form.control{
+    width: auto;
+  }
+  .user-register-container{
+    justify-content: space-between;
+
+  }
+  .form-container{
+    width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-card {
+      width: 120px;
+      height: 120px;
+  }
+}
+

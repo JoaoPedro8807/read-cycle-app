@@ -1,0 +1,38 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href='{% static "assets/book/css/book_list.css" %}'>
+    
+
+
+    <div class="book-list-infos-container sidebar">
+        <div class="infos-left-side">
+            <h4 class="infos-left-side-item">Seus livros cadastrados</h4>
+            <a href='{% url "book:book-create-page" %}'><button class=" infos-left-side-item formbold-btn">Cadatrar Livro</button></a>
+        </div>
+
+        <ul class="book-list-infos-list">
+            <li class=" ">Total de livros: {% if not object_list %}<p>Nenhum item encontrado</p>{% else %}<p>{{ object_list.count }} </p>{% endif %}</li>
+            <li class="book-list-item item-disponivel">Livros disponíveis: {{ total_user_books_available }} </li>
+            <li class="book-list-item item-indisponivel">Livros indisponíveis: {{ total_user_books_unavailable }}  </li>
+        </ul> 
+    </div>
+
+
+    <div class="main-content grid-container">
+        {% include "book/render_book_list.html" %}
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,55 @@
+{% extends "global/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'assets/book/css/all_book_list.css' %}">
+
+<div class="header">    
+    <form   
+        hx-get="{% url 'book:book-list-page' %}" 
+        hx-target='.book-grid'
+        hx-swap="innerHTML"
+        hx-headers='{"partial": "True"}'
+        id="filters-form"
+    >
+        {{ filter_form.form.search}}
+        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+    </form>
+</div>
+    <div class="list-container">
+        <aside class="filters">
+            <header class="header">
+                <button class="hamburger"></button>
+                <nav class="nav">
+                  <a href="/" class="logo"></a>
+                  <h2>Filtros</h2>
+                  <form 
+                        hx-get="{% url 'book:book-list-page' %}" 
+                        hx-target='.book-grid'
+                        hx-swap="innerHTML"
+                        hx-headers='{"partial": "True"}'
+                        >
+                  <ul class="nav-list">
+                    
+                        <li>{{ filter_form.form.category }} </li>
+                        <li>{{ filter_form.form.proximidade }}</li>
+                        <label for="id_proximidade" class="text-center pt-2">Livros próximos</label> 
+                        <input type="hidden" id="direction">
+
+                        {{ filter_form.form.language }}
+
+                        <input type="submit" value="Filtrar" class="filter-submit p-4 mt-5" id="filter-btn">
+                    </ul>
+                    </form>
+                </nav>
+            </header>
+        </aside>
+        <div class="book-grid">
+                {% include 'book/render_book.html' %}
+        </div>                                                          
+        <span id="spinner" class="loading loading-spinner loading-lg htmx-indicator"></span>
+    <script type="module" src="{% static 'assets/book/js/book_list.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+{% endblock content %}
+
+
+

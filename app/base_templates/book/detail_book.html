@@ -1,0 +1,165 @@
+{% extends "global/base.html" %}
+{% load static %}
+{% load range_tag %}
+{% block content %}
+
+<div>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href='{% static "assets/book/css/detail-book.css" %}'>
+
+
+
+<div id="main">
+    
+  <div class="breadcrumbs detail-container">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Detalhes do livro</h2>
+        <ol>
+          <li><a href="{% url 'book:book-list-page' %}">Lista de livros</a></li>
+          <li>Detalhes do livro</li>
+        </ol>
+      </div>
+
+    </div>
+    </section>
+
+    <div class="detail-infos-container">
+
+      <section id="portfolio-details" class="portfolio-details col-xl-8 col-md-12 col-sm-12 col-12">
+        <div class="container col-md-12 col-sm-12 col-12">
+
+          <div class="row gy-4">
+
+            <div class="col-lg-8 img-book-detail-container">
+              <img class="book-detail-image " src="{{ book.image.url }}" alt="Book Image">
+              </div>
+
+              <div class="swiper-pagination"></div>
+
+
+            <div class="col-lg-4">
+              <div class="portfolio-info">
+                  <h2> Informações: </h2>
+                  <br>
+                  <ul>
+                    <li><strong>Dono </strong> {{ book.owner.full_name }} </li>
+                    <li><strong>Livro postado em:</strong> {{ book.created_at}} </li>
+
+                    <li><strong>Local</strong> {{ book.owner.city|upper }} - {{ book.owner.state|upper }} </li>
+                    <li><strong>
+                      {% if book.available %}
+                      <p>
+                        Disponível
+                        <i class="fa-solid fa-check availability-icon"></i>
+                      </p>
+                      {% else %}                    
+                      Indisponível<i class="fa-solid fa-handshake availability-icon"></i>                   
+                      {% endif %}
+                    </strong></li>
+                  </ul>
+                </div>
+
+              <div class="portfolio-info">
+                <h2> {{ book.title }} </h2>
+                <br>
+                <ul>
+                  <li><strong>Autores </strong> {{ book.authors}} </li>
+                  <li><strong>versão </strong>{{ book.version }} </li>
+                  <li><strong>Publicado em </strong> {{ book.published_at }} </li>
+                  <li><strong>Número de páginas </strong> {{ book.total_pages }} </li>
+
+                  <li><strong>Língua </strong>{{ book.language}}  </li>
+                </ul>
+              </div>
+      
+              
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </div>
+  <div class="description-detail-container">
+    <p class="description-detail">  {{ book.description }}  </p>
+  </div>
+
+
+  <section class="comments-section">
+    <h2>Comentarios</h2>
+    <div class="comments-container">
+    {% for avaliation in book.avaliations.all %}
+      <div class="comment-container">
+          <div class="comment-user">
+          </div>
+          <div class="comment-body">
+            {% if avaliation.rating %}
+              <div class="stars-voted">
+                <strong><i class="fa-solid fa-user"> </i>  {{ avaliation.user.full_name }}</strong>: 
+
+                {% for i in avaliation.rating|range_int %}
+                  <span class="star-fixed" data-value="0">&#9733;</span>
+                {% endfor %}
+                <p> {{ avaliation.created_at  }} </p>
+              </div>
+
+            {% endif %}
+
+            <p class="comment-title"> {{ avaliation.title }}  </p>
+            <p class="comment-body">{{ avaliation.body }}</p>
+
+          </div>
+      </div>
+      {% empty %}
+          <p class="comments-empty">Ninguém avaliou esse livro ainda</p>
+      {% endfor %}
+    </div>  
+
+    <h3>Adicione sua avaliação: </h3>
+    <div class="make-comments-container">
+    </div>
+
+      <form
+      hx-post="{% url 'book:book-avaliation' book.id %}"
+      hx-target=".make-comments-container" 
+      hx-swap="innerHTML"
+      >
+        {% csrf_token %}
+        <p>
+          <label for="id_rating">Nota:</label>
+          <div class="star-rating">
+            <input type="hidden" id="id_score" name="rating">
+            <span class="star" data-value="5">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="1">&#9733;</span>
+          </div>
+        </p>
+
+        <p>
+          <input type="text" name="title" maxlength="50" required="" id="id_name" placeholder="Digite um título para a avaliação">
+        </p>
+        
+        <p>
+          <textarea name="body" cols="40" rows="10" required="" id="id_body" placeholder="Digite o comentário"></textarea>
+          
+        </p>
+          <button class=" infos-left-side-item formbold-btn">Avaliar</button>
+            
+      </form>
+
+  </section>
+ 
+
+<script src="{% static 'assets/book/js/book_detail.js' %}"></script>
+<script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+
+{% endblock content %}  
+
+
+
+

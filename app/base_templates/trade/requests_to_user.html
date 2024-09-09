@@ -1,0 +1,15 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'assets/trade/css/trade-list.css' %}">
+    <section class="trade-section">
+        {% include "trade/render_trade.html" %}
+
+    <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+    </section>
+
+{% endblock content %}
+
+
+

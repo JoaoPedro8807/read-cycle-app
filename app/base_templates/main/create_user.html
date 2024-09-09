@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{% static "assets/main/css/create_user.css" %}">
+<div class="formbold-main-wrapper">
+	<div class="formbold-form-wrapper">
+
+	  <form action="#" method="POST">	
+		{% csrf_token %}
+		<div class="formbold-form-title">
+		  <h2 class="">Registrar-se</h2>
+		  <p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+			eiusmod tempor incididunt.
+		  </p>
+		</div>
+		<div class="inputs-container"> <!-- mudar o flex aqui para os outros forms -->
+			
+		{% for field in form %}
+			<div class="formbold-input-flex">
+			<div>
+				{{ field.label_tag }}
+				
+				</label>
+				{% if field.help_text %}
+							<small class="form-text text-muted">{{ field.help_text }}</small>
+				{% endif %}
+				{{ field }}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+  
+		<div class="formbold-checkbox-wrapper">
+		  <label for="supportCheckbox" class="formbold-checkbox-label">
+			<div class="formbold-relative">
+			  <input
+				type="checkbox"
+				id="supportCheckbox"
+				class="formbold-input-checkbox"
+			  />
+			  
+			</div>
+		  </label>
+		</div>
+  
+		<button class="formbold-btn">Register Now</button>
+	  </form>
+	</div>
+  </div>
+</html>

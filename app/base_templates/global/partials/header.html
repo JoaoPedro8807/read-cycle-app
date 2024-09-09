@@ -1,0 +1,38 @@
+<header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="{% url 'main:home-page' %}">Read Cycle</a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-li nk scrollto" href="/">Início</a></li>
+          
+          <li><a class="nav-li nk scrollto" href="#about">Sobre</a></li>
+
+          <li><a class="nav-li nk scrollto" href="#faq">Exemplos</a></li>
+
+          <li><a href="{% url 'book:book-list-page' %}">Livros disponíveis</a></li>
+
+          <li><a href="{% url "book:book-create-page" %}">Cadastrar Livro</a></li>
+          
+          <li class="dropdown"><a href="#"><span>Usuário</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="{% url "main:user-profile" %}">Perfil</a></li>
+              <li><a href="{% url 'trade:requests-trades-user' %}">Solicitações</a></li>
+              <li><a href="{% url 'book:my-list-book-page' %}">Seus livros</a></li>
+              {% if request.user.is_authenticated %}
+                <li><a href="{% url 'main:logout' %}">Logout</a></li>
+                
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  

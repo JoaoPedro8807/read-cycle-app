@@ -1,0 +1,281 @@
+{% load static %}
+{% load is_model_object %}                                                                             
+{% load unzip %}
+{% load expired_trade_date %}
+<div class="trade-container">
+
+<link rel="stylesheet" href="{% static 'assets/trade/css/trade.css' %}">
+    {% for item in trades %}
+        {% with trade=item.0 payment=item.1 shipping=item.2 %}
+        <div class="trade info-container text-center pt-5"> 
+            <p>tipo de pagamento:  <strong class="payment-method">{{ payment.get_description }}</strong></p>
+            <p>Solicitação feita em: {{ trade.created_at }} </p>
+            <p>Requisitante: {{trade.user.full_name}} </p>
+            
+            {% if not trade.finalizate %}
+                <p>A troca expirará em: <strong class="expired-text">{{ trade.created_at|expired_trade_date }}</strong> dias </p>
+            {% endif %}
+        </div>        
+        {% if trade.user == request.user %} <!-- conditionaly to show request.user infos first on the card, example: own offert and actions options (accept, to give up, see tracking, etc) -->
+            
+            {% if trade.accepted %}  
+                <div class="trade-container-item">
+                    <div class="trade-offer trade-item-box trade-item  already-accepted-container">
+                        {% if payment.trade_value|is_object %} <!-- to book-card -->
+                            <h5>{{ trade.book_offer.title }} </h5>
+                            <img class="book-detail-image pt-5" src="{{ trade.book_offer.image.url }}" alt="Book Image">
+                            <p>Autor: <strong class="book-text-info" >{{ trade.book_offer.authors }}</strong>  </p>
+                            <p>Postado em {{ trade.book_offer.created_at }} </p>
+
+                        {% else %}
+
+                            <div class="payment-numeric">
+                                <div class="points-svg-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"></path>
+                                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"></path>
+                                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"></path>
+                                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        <p class="points-text"><strong> {{ payment.trade_value }}</strong> </p>
+
+                        {% endif %}
+                    </div>
+
+                    <div class="trade-icon  trade-item-box">
+                        {% if trade.finalizate %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                            <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                        </svg>
+                        {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07A7.001 7.001 0 0 0 8 16a7 7 0 0 0 5.29-11.584l.013-.012.354-.354.353.354a.5.5 0 1 0 .707-.707l-1.414-1.415a.5.5 0 1 0-.707.707l.354.354-.354.354-.012.012A6.97 6.97 0 0 0 9 2.071V1h.5a.5.5 0 0 0 0-1zm2 5.6V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 1 1 1 0"/>
+                            </svg>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="trade-book trade-item  trade-item-box already-accepted-container">
+                        <img src="{{ trade.book.image.url }} " alt="book-image" clas="">
+                        <p>{{ trade.book.title }}</p>
+                        <p>{{ trade.book.version }}</p>
+                    </div> 
+                    
+                        {% if not trade.finalizate %}   
+                             
+                             {% if trade.first_ship and payment.trade_value|is_object %}
+                                <a href="{% url 'trade:finalizate-trade' trade.id %}" class="btn-container">
+                                   <button class="btn btn-success">
+                                        Confirmar seu envio
+                                   </button>
+                                    
+                                </a>
+                             {% else %}
+                                <div class="btn-container">
+                                    <p class="btn btn-waiting"> Aguardando a confirmação</p>
+                                </div> 
+
+                            {% endif %}
+                        {% else %}
+                        <div class="btn-container">
+                            <a href="{% url 'trade:tracking-page' trade.id %}"><button class="btn btn-tracking" >Acompanhar o envio</button></a>
+                        </div>
+                        {% endif %}
+                </div>
+
+            {% else %}
+                
+                <div class="trade-container-item">
+                    <div class="trade-offer trade-item-box trade-item">
+                        você dará:
+                        {% if payment.trade_value|is_object %}
+                            <img class="book-detail-image " src="{{ trade.book_offer.image.url }}" alt="Book Image">
+                            <h5>{{ trade.book_offer.title }} </h5>
+                            <p>Autor: <strong class="book-text-info" >{{ trade.book_offer.authors }}</strong>  </p>
+                            <p>Postado em {{ trade.book_offer.created_at }} </p>
+                                    
+                        {% else %}
+                            <div class="payment-numeric pt-5">
+                                <div class="points-svg-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"></path>
+                                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"></path>
+                                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"></path>
+                                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        <p class="points-text"><strong> {{ payment.trade_value }}</strong> </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="trade-icon  trade-item-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-arrow-right arrow-trade-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                        </svg>
+                    </div>
+                    <div class="trade-book trade-item  trade-item-box">
+                        e receberá:
+                        <img class="book-detail-image " src="{{ trade.book.image.url }}" alt="Book Image">
+                        <h5>{{ trade.book.title }} </h5>
+                        <p>Autor: <strong class="book-text-info" >{{ trade.book.authors }}</strong>  </p>
+                        <p>Postado em {{ trade.book.created_at }} </p>
+
+
+                    </div> 
+                    
+                        <div class="btn-container">
+                            <button class="btn btn-danger give-up-btn" id="give-up-trade">Desistir da troca</button>
+                        </div>                                          
+                        <dialog class="give-up-dialog" id="dialog-give-up">
+                            <h3>Certeza que quer desistir da troca do livro <strong>{{ trade.book.title|upper }}</strong> ?</h3>
+                            <p class="title-detail">Ao desistir, seus pontos ou livro oferecidor retornarão para você.</p>
+                    
+                            <div class="dialog-btns">
+                                <button class="btn btn-danger dialog-btn dialog-confirm-btn"
+                                        hx-delete="{% url 'trade:delete-trade' trade.id %}"
+                                        hx-target=".trade-section"
+                                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                        hx-swap="innerHTML">
+                    
+                                        Confirmar
+                                    </button>
+                                <button class="btn btn-secondary give-up-cancel">Cancelar</button>
+                    
+                            </div>
+                        </dialog>  
+                </div>
+            {% endif %} 
+
+        {% else %} <!-- conditionaly to show request.user infos first on the card, example: own offert and actions options (accept, to give up, see tracking, etc) -->
+
+            {% if trade.accepted %}  
+                <div class="trade-container-item">
+                    <div class="trade-book trade-item  trade-item-box already-accepted-container">
+                        <img src="{{ trade.book.image.url }} " alt="book-image" class="pt-5">
+                        <p>{{ trade.book.title }}</p>
+                        <p>{{ trade.book.version }}</p>
+                    </div> 
+
+                    <div class="trade-icon  trade-item-box">
+                        {% if trade.finalizate %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                            <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                        </svg>
+                        {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07A7.001 7.001 0 0 0 8 16a7 7 0 0 0 5.29-11.584l.013-.012.354-.354.353.354a.5.5 0 1 0 .707-.707l-1.414-1.415a.5.5 0 1 0-.707.707l.354.354-.354.354-.012.012A6.97 6.97 0 0 0 9 2.071V1h.5a.5.5 0 0 0 0-1zm2 5.6V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 1 1 1 0"/>
+                            </svg>
+                        {% endif %}
+                    </div>
+
+                    <div class="trade-offer trade-item-box trade-item  already-accepted-container">
+                        {% if payment.trade_value|is_object %}
+                            <img class="book-detail-image pt-5" src="{{ trade.book_offer.image.url }}" alt="Book Image">
+                            <h5>{{ trade.book_offer.title }} </h5>
+                            <p>Autor: <strong class="book-text-info" >{{ trade.book_offer.authors }}</strong>  </p>
+                            <p>{{ trade.book_offer.version }} </p>
+
+                        {% else %}
+                            <div class="payment-numeric">
+                                <div class="points-svg-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"></path>
+                                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"></path>
+                                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"></path>
+                                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="points-text"><strong> {{ payment.trade_value }}</strong> </p>
+                        {% endif %}
+
+                    </div>
+                        {% if not trade.finalizate %}                                                        
+                            <div class="btn-container">
+                                <a href="{% url 'trade:finalizate-trade' trade.id %}"><button class="btn btn-secondary" >Ir para confirmação</button></a>
+                            </div>
+                        {% else %}
+                            <div class="btn-container">
+                                <a href="{% url 'trade:tracking-page' trade.id %}"><button class="btn btn-tracking" >Acompanhar o envio</button></a>
+                            </div>
+                        {% endif %}
+                </div>
+            {% else %}
+                <div class="trade-container-item">
+                    <div class="trade-book trade-item  trade-item-box">
+                        você dará:
+                        <img src="{{ trade.book.image.url }} " alt="book-image" class="" >
+                        <p>{{ trade.book.title }}</p>
+                        <p>Autor: <strong class="book-text-info" >{{ trade.book_offer.authors }}</strong>  </p>
+                        <p>{{ trade.book.version }}</p>
+                    </div> 
+
+                    <div class="trade-icon  trade-item-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-arrow-right arrow-trade-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                        </svg>
+                    </div>
+
+                    <div class="trade-offer trade-item-box trade-item">
+                        e receberá:
+                        {% if payment.trade_value|is_object %}
+                            <img class="book-detail-image " src="{{ trade.book_offer.image.url }}" alt="Book Image">
+                            <h5>{{ trade.book_offer.title }} </h5>
+                            <p>Autor: <strong class="book-text-info" >{{ trade.book_offer.authors }}</strong>  </p>
+                            <p>{{ trade.book_offer.version }} </p>
+                        {% else %}
+                            <div class="payment-numeric pt-5">
+                                <div class="points-svg-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"></path>
+                                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"></path>
+                                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"></path>
+                                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="points-text"><strong> {{ payment.trade_value }}</strong> </p>
+
+                        
+                        {% endif %}
+                    </div>
+                    
+                
+                    <div class="btn-container">
+                        <a href="{% url 'trade:trade-confirmate' trade.id %}"><button class="btn btn-success">Aceitar</button></a>''
+                        <button class="btn btn-danger delete-btn" >Rejeitar</button> 
+                    </div>
+                </div>
+            {% endif %}
+    
+
+        {% endif %}
+
+    <dialog class="delete-trade-dialog" id="dialog">
+        <h3>Confirmar a rejeição da proposta para <strong>{{ trade.book.title|upper }}</strong> ?</h3>
+        <p class="title-detail">Ao excluir, a proposta não aparecerá novamente </p>
+
+        <div class="dialog-btns">
+            <button class="btn btn-danger dialog-btn dialog-confirm-btn"
+                    hx-delete="{% url 'trade:delete-trade' trade.id %}"
+                    hx-target=".trade-section"
+                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                    hx-swap="innerHTML">
+
+                    Confirmar
+                </button>
+            <button class="btn btn-secondary dialog-btn dialog-cancel-btn">Cancelar</button>
+
+        </div>
+    </dialog>
+    {% endwith %}
+    {% empty %}
+        <h3>Nenhum livro foi solicitado ainda.</h3>
+
+    {% endfor %}
+    <script src="{% static 'assets/trade/js/trade-list.js' %}"></script>
+</div>

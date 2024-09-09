@@ -1,0 +1,134 @@
+:root{
+    --color-1: #91BF84;
+    --color-2: #F2E9D8;
+    --color-3: #ff9e4f;
+    --color-4: #D99066;
+    --color-5: #91BF84;
+    
+    
+    --icon-color: #274360;
+  
+  
+    --shadow:   
+        0 0px 15px 0 rgba(0, 0, 0, 0.384),
+        0 2px 10px 0 rgba(0, 0, 0, 0.486); 
+  }
+
+.trade-main{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ecf0f0;
+}
+
+.trade-container{
+    width: 80%;
+    margin-top: 50px;
+    height: auto;
+    margin-bottom: 50px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    flex-wrap: wrap;
+}
+.card-container{
+    width: 100%;
+    min-height: 50dvh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card-item{
+    margin-top: 100px;
+    width: auto;
+    display: flex;
+    max-height: 50dvh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 100px;
+}
+.tracking-price-container{
+    align-self: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.tracking-price{
+    font-size: 1.7em;
+    padding: 20px;
+    color: var(--color-3);
+}
+.book-text-info{
+    font-style: italic;
+}
+.card-item h2, h3, p{
+    text-align: center; 
+}
+.text-theme{
+    font-size: 1.2em;
+    font-weight: 800;
+}
+
+.trade-section{
+    padding: 0px;
+}
+.bi-cash-coin{
+    width: auto;
+    height: 100px;
+    color: #28a745;
+    background-color: #e0f8e9;
+    border-radius: 10px;
+}
+.points-text{
+    font-size: 1.3em;
+}
+.btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #ecf0f0;
+}
+.btn-confirm{
+    background-color: var(--color-1);
+    color: white;
+}
+.btn-confirm:hover{
+    background-color: #49773c;
+    color: white;
+}
+.action-btn{
+    padding: 20px;
+    margin-bottom: 50px;
+}
+.payment-method{
+    color: var(--color-3);
+}
+.btn-redirect{
+    background-color: var(--color-3);
+    color: white;
+}
+.btn-redirect:hover{
+    background-color: #ff821b;
+    color: white;
+}
+
+.confirmate-trade-form{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+@media (max-width: 800px) {
+    .card-item {
+        width: 100%;
+        margin-bottom: 50px;
+    }
+  }

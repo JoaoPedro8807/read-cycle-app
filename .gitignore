@@ -1,0 +1,9 @@
+/data
+data
+venv
+/venv
+.env
+env
+app/static/admin
+app/base_static
+app/media

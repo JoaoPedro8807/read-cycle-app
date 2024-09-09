@@ -1,0 +1,24 @@
+<section class="user-info-section">
+    <div class="user-register-container">
+        <div class="user-stats-info d-flex flex-column align-items-center">
+                <div class="profile-card">
+                    <div class="profile-picture">
+                        <img src="{{ request.user.image.url }} " alt="Foto de Perfil">
+                    </div>
+            </div>
+            <input type="text" value="{{ request.user.email }}" class="form-control email-field mt-2" readonly>
+
+            <div class="user-stats-container">
+                <ul style="list-style: none;" class="mt-5">
+                    <li class="user-request-trade-li"> <strong class="count-trade-text"> {{ user_stats.total_trades }} </strong> Trocas solicitadas </li>
+                    <li class="user-trade-accepted-li"> <strong class="count-trade-text"> {{ user_stats.total_accepted }} </strong> Trocas aceitas </li>
+                    <li class="user-trade-canceled-li"> <strong class="count-trade-text"> {{ user_stats.total_canceled }} </strong> Trocas canceladas</li>
+                </ul>
+            </div>
+
+        </div>
+        {% include 'main/render_user_info_form.html' %} 
+            
+    </div>
+    <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+</section>

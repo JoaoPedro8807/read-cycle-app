@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  app_web:
+    container_name: app_web
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:  
+      - ./app:/app
+      - ./data/web/static:/data/web/static/
+      - ./data/web/media:/data/web/media/
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+    environment:
+      - TZ=America/Sao_Paulo           
+
+  db:
+    container_name: db
+    image: postgres:13-alpine
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+
+  psadmin:
+    container_name: psadmin
+    image: dpage/pgadmin4
+    ports:
+      - 5050:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: livro@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: livro123
+    depends_on:
+      - db
+    volumes:
+      - psadmin_data:/var/lib/psadmin
+
+  
+
+  # celery:
+  #   build:
+  #       context: .
+  #   volumes:
+  #     - .:/app
+  #   command: celery -A project worker -B --loglevel=info   
+
+  #   depends_on:
+  #     - redis
+  #   env_file:
+  #     - ./dotenv_files/.env      
+
+volumes:
+  psadmin_data:

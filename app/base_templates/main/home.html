@@ -1,0 +1,211 @@
+{% extends "global/base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include "global/partials/home-hero.html" %}
+
+    <section id="about" class="about">
+        <div class="container">
+        <div class="section-title">
+            <h2>Sobre</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 order-1 order-lg-2">
+            <img src="{% static "assets/img/livros-page2.png" %}" class="img-fluid" alt="">
+            </div>  
+            <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1">
+            <h1>Quer ler aquele livro físico que você tanto gosta, mas não quer comprar ? </h1>
+            <p class="fst-italic">
+                Aqui é o lugar certo para você cadastrar seus livros e oferece-los em troca por outro, ou por pontos. 
+            </p>
+            <ul>
+                <li><i class="bi bi-check"></i>Cadastre seus livros em nosso app.</li>
+                <li><i class="bi bi-check"></i>Procure por livro recomendados ou de sua escolha. </li>
+                <li><i class="bi bi-check"></i>Ofereça uma oferta de troca por um de seus livros ou por seus pontos.
+                </li>
+                <li><i class="bi bi-check"></i>Você ficará sempre informado sobre os processo da troca com notificações a cada etapa do processo de troca.</li>
+            </ul>
+            <p>
+                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                culpa qui officia deserunt mollit anim id est laborum
+            </p>
+            </div>
+        </div>
+
+        </div>
+    </section>
+
+    <section id="services" class="services section-bg">
+        <div class="container">
+
+        <div class="section-title">
+            <h2>Funcionalidades</h2>
+            <p>Algumas das funcionalidades do app na V.1.0. 
+        
+            </p>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6 icon-box">
+                <div class="icon"><i class="bi bi-geo-alt-fill"></i></div>
+                <h4 class="title"><a href="{% url 'book:book-list-page' %}">Pesquisa por livros próximos</a></h4>
+                <p class="description">Você pode pesquisar por livros que estejam pertos de você, assim o frete e a troca se  tornam mais viáveis.
+                </p>
+            </div>
+
+            <div class="col-lg-4 col-md-6 icon-box">
+                <div class="icon"><i class="bi bi-pen"></i></div>
+                <h4 class="title"><a href="{% url 'book:book-create-page' %}">Cadastre seu livro com ajuda da API</a></h4>
+                <p class="description">Você pode passar o nome e os autores do livro, que o app já preenche o livro que você pretende cadastrar</p>
+            </div>
+
+            <div class="col-lg-4 col-md-6 icon-box">
+                <div class="icon"><i class="bi bi-search"></i></div>
+                <h4 class="title"><a href="{% url 'book:book-list-page' %}">Pesquise por livros, autores e categorias</a></h4>
+                <p class="description">Na página de livros, aplique filtros de sua preferência e/ou pesquise por títulos, autores e categorias</p>
+            </div>
+
+            <div class="col-lg-4 col-md-6 icon-box">
+                <div class="icon"><i class="bi bi-kanban"></i></div>
+                <h4 class="title"><a href="{% url 'trade:requests-trades-user' %}">Gerencie todas as suas trocas e ofertas de trocas por seus livros</a></h4>
+                <p class="description">Você pode gerenciar as suas próprias trocas, bem como, as ofertas
+                    de trocas em seus livros, além de poder também editar seus livros já cadastrados.</p>
+            </div>
+
+            
+
+            <div class="col-lg-4 col-md-6 icon-box">
+                <div class="icon"><i class="bi bi-bell-fill"></i></div>
+                <h4 class="title"><a href="#">Esteja sempre notificado</a></h4>
+                <p class="description">Receba notificações por email a cada atualização da troca </p>
+            </div>
+
+            <div class="col-lg-4 col-md-6 icon-box">
+                <div class="icon"><i class="bi bi-chat-left-dots"></i></div>
+                <h4 class="title"><a href="{% url 'book:book-list-page' %}">Avaliação</a></h4>
+                <p class="description">Você pode passar suas  avaliações e comentários em qualquer livro. </p>
+            </div>
+        </div>
+
+        </div>
+    </section>
+
+    <section class="call-to-action">
+        <div class="container">
+
+        <div class="text-center">
+            <h3>Cadastre-se</h3>
+            <p>Para acessar seus livros, ou solicitar troca por outros livros, é necessário estar se cadastrado
+                 e estar logado</p>
+            <a class="cta-btn" href="{% url 'main:create-page' %}">Cadastrar</a>
+            <a class="cta-btn m-5" href="{% url 'main:login-page' %}">Login</a>
+
+        </div>
+
+        </div>
+    </section>
+
+
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+
+        <div class="section-title">
+            <h2>Livros próximos do usuário e recomendados</h2>
+        </div>
+
+
+        <div class="row portfolio-container" id="portfolio-container">
+            <meta name="csrf-token" content="{{ csrf_token }}">
+                {% include 'main/render_book_card.html' %}
+            <a href="{% url 'book:book-list-page' %}"><p>Ver todos</p></a>
+
+        </div>
+        </div>
+    </section>
+
+
+    <section id="faq" class="faq section-bg">
+        <div class="container">
+
+        <div class="section-title">
+            <h2 class="text-center">Dúvidas frequentes: </h2>
+        </div>
+
+        <ul class="faq-list">
+
+            <li>
+                <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">Como cadastrar cadastrar meu livro ? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq1" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                    No menu superior da página, clique em <a href="{% url 'book:book-create-page' %}" class="questions-link">Cadastrar meu livro</a>, em seguida digite o título, os autores e a versão, então caso o app ache
+                esse livro, irá preencher as informações automaticamente para você, caso não ache, você terá que preencher manualmente.
+                </p>
+            </div>
+            </li>
+
+            <li>
+            <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Como faço para pesquisar livros que estejam próximos ?  <i class="bi bi-chevron-down icon-show"></i><i
+                class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                    No início da página o app já sugere e filtra alguns livros que já estão mais perto de você, mas também é possível 
+                    pesquisar na página de <a href="{% url 'book:book-list-page' %}" class="questions-link">livros disponíveis</a>, e na barra de filtros, adicione "Livros proximos" 
+               
+                </p>
+            </div>
+            </li>
+
+            <li>
+            <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Quantos livros consigo oferecer em cada troca ? <i class="bi bi-chevron-down icon-show"></i><i
+                class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq3" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                    Por padrão, você só pode oferecer apenas 1 livro para cada troca, também vale para pontos, onde cada livro vale 100 pontos. 
+                    O app tenta não entrar no valor real de cada livro, apenas oferecer um meio campo para que livros físicos possam ser compartilhados
+                    </nav>
+                </p>
+            </div>
+            </li>
+
+            <li>
+            <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Pago alguma coisa para trocar ? <i class="bi bi-chevron-down icon-show"></i><i
+                class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq4" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                    Não, a única taxa será a do frete do <strong>seu envio</strong>.
+                </p>
+            </div>
+            </li>
+
+            <li>
+            <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">Como posso acompanhar minhas trocas ? <i class="bi bi-chevron-down icon-show"></i><i
+                class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq5" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                    Você pode acompanhar diretamente da página do <a href="{% url 'main:user-profile' %}" class="questions-link"> seu perfil</a>, ou então, abrir a página 
+                    <a href="{% url 'trade:requests-trades-user' %}" class="questions-link">Solicitações</a>
+                </p>
+            </div>
+            </li>
+
+            <li>
+            <div data-bs-toggle="collapse" href="#faq6" class="collapsed question">Desistir de uma troca <i class="bi bi-chevron-down icon-show"></i><i
+                class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq6" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                    Para desistir de uma troca, você pode acessar   <a href="{% url 'main:user-profile' %}" class="questions-link"> seu perfil</a>, achar a troca que você quer e clicar desistir
+                </p>
+            </div>
+            </li>
+
+        </ul>
+
+        </div>
+    </section>
+    
+</div>    
+<script  type="module" src="{% static 'assets/js/home_page.js' %}"></script>
+{% endblock content %}

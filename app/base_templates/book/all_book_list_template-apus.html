@@ -1,0 +1,92 @@
+{% extends "global/base.html" %}
+{% load static %}
+{% load partials  %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'assets/book/css/all_book_list.css' %}">
+
+<div class="header">
+    <form 
+        hx-get="{% url 'book:book-list-page' %}" 
+        hx-target='.book-grid'
+        hx-swap="innerHTML"
+        hx-headers='{"partial": "True"}'
+    >
+        {{ filter_form.form.search}}
+    </form>
+</div>
+    <div class="list-container">
+        <aside class="filters">
+            <header class="header">
+                <button class="hamburger"></button>
+                <nav class="nav">
+                  <a href="/" class="logo"></a>
+                  <h2>Filtros</h2>
+                  <form 
+                        hx-get="{% url 'book:book-list-page' %}" 
+                        hx-target='.book-grid'
+                        hx-swap="innerHTML"
+                        hx-headers='{"partial": "True"}'
+                        id="filter-form"
+                        >
+                  <ul class="nav-list">
+                    
+                        <li>{{ filter_form.form.category }} </li>
+                        <li>{{ filter_form.form.proximidade }}</li>
+                        <label for="id_proximidade" class="text-center pt-2">Livros próximos</label> 
+                        <input type="hidden" id="direction">
+
+                        {{ filter_form.form.language }}
+
+                        <input type="submit" value="Filtrar" class="filter-submit p-4 mt-5" id="filter-btn">
+                    </ul>
+                    </form>
+                </nav>
+            </header>
+        </aside>
+        <div class="book-grid">
+            {% partialdef book_list inline=True %}
+                {% for book in  object_list %}
+                    {% if forloop.last and object_list.has_next %}
+                        <div class="book-card"
+                            hx-get="{% url 'book:book-list-page' %}?page={{ object_list.next_page_number }}"
+                            hx-trigger="revealed"
+                            hx-swap="afterend"
+                            hx-indicator="#spinner"
+                            hx-headers='{"partial": "True"}'
+                        >
+                        {% else %}  
+                        <div class="book-card">
+                        
+                        {% endif %}
+
+
+                        <div class="card-body">
+                            <a href="{% url 'book:book-detail-page' book.id %}" class="book-card-link">
+                            <img src="{{ book.image.url }}" alt="Book Image">
+                            <div class="book-card-title">
+                                <h3> {{ book.title }} </h3> 
+                            </div>
+                            <p>Por <strong>{{ book.authors }}</strong></p>
+                            <p>Edição em <strong>{{ book.language }}</strong></p>
+                            <p>{{ book.category }} </p>
+                            <p><i class="fa-solid fa-location-dot"></i> {{ book.owner.public_andress }}  </p>
+                            </a> 
+                        </div>
+
+                        <div class="card-footer">
+                            <a href="{% url 'trade:trade-index' book.id %}"><button class="btn-troca">Solicitar troca</button></a>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+            {% endpartialdef %}
+        </div>                                                          
+        <span id="spinner" class="loading loading-spinner loading-lg htmx-indicator"></span>
+    <script type="module" src="{% static 'assets/book/js/book_list.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+{% endblock content %}
+
+
+

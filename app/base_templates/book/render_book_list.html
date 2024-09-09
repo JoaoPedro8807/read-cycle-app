@@ -1,0 +1,51 @@
+{% load static %}
+{% for book  in object_list %}
+    <div class="container grid-item">
+        <dialog id="dialog">
+            <h3>Excluir <strong>{{ book.title|upper }}</strong> ?</h3>
+            <p class="title-detail">O livro será excluido de todo o sistema </p>
+
+            <div class="dialog-btns">
+                <button class="btn btn-secondary dialog-btn dialog-cancel-btn">Cancelar</button>
+                <button class="btn btn-danger dialog-btn dialog-confirm-btn"
+                        hx-delete="{% url 'book:book-delete-page' book.id %}"
+                        hx-target=".grid-container"
+                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                        hx-swap="innerHTML">
+
+                        Excluir
+                    </button>
+            </div>
+
+        </dialog>
+        <div class="row grid-container-row">
+            <div class="col-md-4 book-image d-flex">
+                {% if book.image %}
+                    <img src="{{ book.image.url }}" alt="Book Image">
+                {% endif %}
+
+                {% if book.available %}
+                    <i class="fa-solid fa-check availability-icon"></i>
+                {% else %}                    
+                    <i class="fa-solid fa-handshake availability-icon"></i>        
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <a href={% url 'book:book-detail-page' book.id %}><h2 class="book-title"> {{ book.title }} </h2> </a>
+                    <p class="title-detail"> <i class="fa-regular fa-calendar-days"></i>  ({{ book.published_at }})  - {{ book.language }}  </p>
+                    
+                    
+                <p class="book-authors"> <i class="fa-solid fa-pencil"> </i> {{ book.authors }}  </p>
+                <p class="book-description"> {{ book.description }}</p>
+            </div>                                                                  
+
+            <div class="item-edit-container">
+                <i class="fa-solid fa-trash item-edit trash-btn" id="btn-excluir"></i>
+                <a href="{% url 'book:book-detail-page' book.id %}"><i class="fa-solid fa-up-right-from-square item-edit edit-btn " id="btn-editar"></i></a>
+            </div>
+
+        </div>
+    
+    </div>
+{% endfor %}
+<script src="{% static 'assets/book/js/book.js' %}"></script>

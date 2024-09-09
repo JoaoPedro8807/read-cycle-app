@@ -1,0 +1,69 @@
+{% load static %}
+<script src="{% static "assets/book/js/book.js" %}"></script>
+<script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/response-targets.js"></script>
+
+<div class="alert alert-{{allert_class}}">
+    <form 
+        method="POST"
+        action="{% url 'book:book-create-confirm' %}"
+        >
+        {% csrf_token %}
+        <div class="formbold-form-title">
+        <h2 class="">Resultado da pesquisa:</h2>
+        <p>
+          Você pode editar algo que não concorde e confirmar o cadastro do livro
+        </p>
+        </div>
+        <div class="inputs-container" id="res-container"> 
+        {% for field in form %}
+            <div class="formbold-input-flex">   
+                {{ field.label_tag }}   
+                </label>
+                {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %} 
+
+                {% if field.name == 'category' %}
+                        <select name="category" id="id_category" required>
+                            <option value="">Selecione uma opção</option>
+                            {% for choice in form.fields.category.choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select>
+                {% elif field.name == 'image' %}
+                    {% if not api_image %}
+                        <label for="image">Selecione uma imagem para o livro</label>
+                        {{ field }}
+                                
+                    {% endif %}     
+                {% else %}
+                    {{ field }}
+                {% endif %}
+
+                
+
+                
+           
+                    
+
+            </div>
+        {% endfor %}    
+    </div>
+
+
+        <div class="formbold-checkbox-wrapper">
+        <label for="supportCheckbox" class="formbold-checkbox-label">
+            <div class="formbold-relative">
+            <input
+                type="checkbox"
+                id="supportCheckbox"
+                class="formbold-input-checkbox"
+            />
+            
+            </div>
+        </label>
+        </div>
+
+        <button class="formbold-btn">Salvar</button>
+    </form>
+</div>

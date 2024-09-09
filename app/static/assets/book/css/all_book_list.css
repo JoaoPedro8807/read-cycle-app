@@ -1,0 +1,370 @@
+:root{
+    --color-1: #91BF84;
+    --color-2: #F2E9D8;
+    --color-3: #ff9e4f;
+    --color-4: #D99066;
+    --color-5: #91BF84;
+    --color-6: #777;
+    
+  
+    --icon-color: #274360;
+
+    --font-default: "Lato", sans-serif;
+  
+  
+    --shadow: 
+        0 0px 15px 0 rgba(0, 0, 0, 0.384),
+        0 2px 10px 0 rgba(0, 0, 0, 0.486); 
+  }
+  
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+main{
+    height: auto;
+}
+.header {
+    padding: 10px;
+    text-align: center;
+}
+
+.search-box {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.list-container{
+    display: flex;
+    height: auto;
+}
+
+.filters {
+    width: 20%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: 100vh;
+}
+.nav{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.filters h2 {
+    margin-top: 0;
+}
+
+.filters ul {
+    list-style: none;
+    padding: 0;
+}
+
+.filters li {
+    margin-bottom: 10px;
+}
+
+.book-grid {
+    width: 80%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 50px;
+    overflow-y: auto;
+}
+
+.book-card {
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    max-height: 600px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.book-card img {
+    width: 128px;
+    height: 193px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.book-card-title{
+    margin-bottom: 30px;
+}
+.book-card-link{
+    text-decoration: none;
+    color: #777;
+}
+.book-card-link:hover{
+    color: #777;
+}
+
+.book-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-troca{
+    width: 100%;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 14px 25px;
+  border: none;
+  font-weight: 500;
+  background-color: var(--color-1);
+  color: white;
+  cursor: pointer;
+  margin-top: 25px;
+}
+
+.card-body p{
+    font-size: 0.9em;
+}
+
+input, select {
+    text-align: center;
+    padding: 10px 0px;
+    border-radius: 5px;
+    border: 1px solid #dde3ec;
+    background: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    color: #536387;
+    outline: none;
+    resize: none;
+    width: 100%;
+}
+
+input:focus {
+    border-color: #6a64f1;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+}
+label{
+    color: #536387;
+    font-size: 14px;
+    line-height: 24px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.formbold-checkbox-label {
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+    line-height: 24px;
+    color: #536387;
+}
+.formbold-checkbox-label a {
+    margin-left: 5px;
+    color: #6a64f1;
+}
+.formbold-input-checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+.formbold-checkbox-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+    margin-top: 2px;
+    border: 0.7px solid #dde3ec;
+    border-radius: 3px;
+}
+
+.formbold-btn {
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 14px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: var(--color-1);
+    color: white;
+    cursor: pointer;
+    margin-top: 25px;
+}
+.formbold-btn:hover {
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+#id_language div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.filter-submit{
+    background-color: var(--color-4);
+    color: white;
+}
+#id_search{
+width: 50%;
+padding: 10px;
+font-size: 16px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+.hamburger {
+    visibility: hidden;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: block;
+    position: relative; 
+    width: 30px; 
+    height: 30px;
+  }
+  
+  .hamburger::after,
+  .hamburger::before {
+    content: " ";
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: black;
+    position: absolute;
+    transition: 0.3s;
+  }
+  .hamburger::before {
+    top: 0; 
+  }
+  .hamburger::after {
+    top: 7px; 
+  }
+  .hamburger.active::before {
+    transform: rotate(45deg); 
+    top: 13px; 
+  }
+  .hamburger.active::after {
+    transform: rotate(-45deg); 
+    top: 13px; 
+  }
+
+
+@media (max-width: 763px) {
+    .list-container{
+        flex-direction: column;
+    }
+    .filters{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+        overflow-y: visible;
+
+    }
+    .hamburger {
+        visibility: visible;
+    }
+    .book-grid{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 0px;
+        height: auto;
+        overflow-y: visible;
+        position: relative;
+    }
+    .book-card{
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+
+    .hamburger {
+        display: block;
+        transition: 0.5s 0.2s ease-out;
+        z-index: 1;
+      }
+    .nav {
+        opacity: 0;
+        transform: translateY(-20px); /* Pequeno deslocamento para suavizar a entrada */
+        visibility: hidden; /* Para garantir que o elemento não afete o layout */
+        position: absolute; /* Remove o elemento do fluxo do layout */
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0s 0.5s;
+    }
+    .nav.active {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible; /* Faz com que o elemento se torne visível */
+        position: absolute; /* Mantém o elemento fixo na tela */
+        transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-list {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background: #fff;
+        clip-path: circle(100px at 90% -15%);
+        transition: clip-path 1s ease-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+    }
+    
+    .nav-list a {
+        font-size: 24px;
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+    }
+    
+    .nav.active .nav-list {
+        clip-path: circle(1500px at 90% -15%);
+        pointer-events: all;
+    }
+    
+    .nav.active .nav-list a {
+        opacity: 1;
+    }
+    
+    .nav.active .hamburger {
+        position: fixed;
+        border-top-color: transparent;                                                              
+    }
+    .header{
+        width: 100%;
+    }
+    #filters-form{
+        width: 100%;
+    }
+  
+}
+

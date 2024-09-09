@@ -1,0 +1,24 @@
+{% for book in recomended_books %}
+<div class="col-lg-4 col-md-6 portfolio-item filter-app">
+    <div class="portfolio-wrap d-flex text-center">
+        <div class="portfolio-book-image">
+            <img src="{{ book.image.url }}" class="img-fluid" alt="book-image">
+        </div>
+        <div class="portfolio-book-info  d-flex align-items-center justify-content-center">
+            <ul class="book-info-ul d-flex align-items-center justify-content-center ">
+                <li><p><i class="bi bi-book">{{ book.version}}  </i></p></li>
+                <li><p><i class="bi bi-geo-alt-fill"></i> {{ book.owner.public_andress }} </p></li>
+            </ul>
+        </div>
+        <div class="portfolio-info">
+        <h3><a href="{% url 'book:book-detail-page' book.id %}" 
+            class="portfolio-lightbox book-title-box" title="{{ book.title }}">{{ book.title }} </a></h3>''
+            <div>
+                <a href="{% url 'book:book-detail-page' book.id %}" 
+                class="portfolio-lightbox" title="App 1"><i class="bi bi-plus"></i></a>
+                <a href="{% url 'trade:trade-index' book.id %}" title="Details"><i class="bi bi-link"></i></a>
+            </div>
+        </div>
+    </div>
+    </div> 
+{% endfor %}

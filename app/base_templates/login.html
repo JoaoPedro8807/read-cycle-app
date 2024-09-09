@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="msgs">
+	{% include "global/message.html" %}
+</div>
+<body>
+	<div class="container">
+		<link rel="stylesheet" href="{% static "assets/main/css/login.css" %}">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<div class="formbold-main-wrapper">
+
+			<div class="formbold-form-title">
+				<p>
+					Já pensou em trocar aquele seu livro que você já leu por um totalmente novo e que você tenha vontade de ler ? 
+				</p>
+				
+			</div>
+			<div class="formbold-form-wrapper">
+				<h1 class="login-title">LOGIN</h1>
+				<form action="" method="POST">	
+				{% csrf_token %}
+				<div class="inputs-container"> <!-- mudar o flex aqui para os outros forms -->
+					<div class="formbold-input-flex">
+						<input
+							type="email"
+							name="email"
+							id="email"
+							placeholder="Digite seu email"
+							class="formbold-form-input"
+							/>
+					</div>
+
+					<div class="formbold-input-flex">
+						<input
+							type="password"
+							name="password"
+							id="password"
+							placeholder="Digite sua senha"
+							class="formbold-form-input"
+							/>
+					</div>
+			
+				<button class="formbold-btn">Entrar</button>
+				<button class="formbold-btn"><a class="app-link" href="{% url "main:create-page" %}">CADASTRAR-SE</a></button>
+				</form>
+			</div>
+	</div>
+
+</body>
+	<script src="{% static "assets/main/js/main.js" %}"></script>
+</html>  

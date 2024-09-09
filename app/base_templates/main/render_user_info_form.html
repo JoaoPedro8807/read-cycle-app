@@ -1,0 +1,18 @@
+<div class="form-container">
+    {% include 'global/message.html' %}
+    <form 
+        hx-post="{% url 'main:edit-user' request.user.uuid %}"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-target=".form-container" 
+        hx-swap="outerHTML"
+        class="form form-user-info">
+        
+        <div class="form-group">
+            {% for field in user_form  %}
+                {{ field.label_tag }} 
+                {{ field }}
+            {% endfor %}
+        </div>
+        <button type="submit" id="edit-user-btn" class="btn btn-secondary w-100 text-center p-2 mt-5">Editar</button>
+    </form>
+</div>

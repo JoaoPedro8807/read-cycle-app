@@ -1,0 +1,146 @@
+:root{
+    --color-1: #91BF84;
+    --color-2: #F2E9D8;
+    --color-3: #ff9e4f;
+    --color-4: #D99066;
+    --color-5: #91BF84;
+    --color-6: #777;
+    
+  
+    --icon-color: #274360;
+  
+  
+    --shadow: 
+        0 0px 15px 0 rgba(0, 0, 0, 0.384),
+        0 2px 10px 0 rgba(0, 0, 0, 0.486); 
+  }
+  
+
+.detail-infos-container{
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-container{
+    width: 70vw;    
+}
+.book-detail-image{
+    width: auto;
+}   
+
+.img-book-detail-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.description-detail-container{
+    padding: 50px;  
+    text-indent: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.description-detail{
+    max-width: 1140px;
+
+}
+.availability-icon{
+    color: #91BF84;
+    font-size: 1.3em;
+}
+
+strong p{                                                                                                   
+    width: 100%;
+    display: inline;
+}
+form p{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+h1, h2, h3{
+    text-align: center;
+}
+
+.comments-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 100px;
+    
+}
+.comments-section{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.comments-section, form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.comentarios-container p, input, textarea{
+    width: 80%;
+}
+.comments-empty{
+    text-align: center;
+    padding-top: 20px;
+    color: var(--color-6);
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+.star {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+}
+.star:hover,
+.star:hover ~ .star,
+.star.selected,
+.star.selected ~ .star {
+    color: #f5b301;
+}
+
+.star-fixed{
+    color: #f5b301;
+    font-size: 2em;
+}s
+.comment-body{
+    width: 100%;
+    align-self: center;
+}
+.comment-title{
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+.comment-body p{
+    text-align: center;
+}
+.stars-voted{
+    width: 100%;
+}
+.formbold-btn{
+width: 50%;
+font-size: 16px;
+border-radius: 5px;
+padding: 14px 25px;
+border: none;
+font-weight: 500;
+background-color: var(--color-1);
+color: white;
+cursor: pointer;
+margin-top: 25px;
+
+}

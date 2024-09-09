@@ -1,0 +1,35 @@
+{% for book in  object_list %}
+    {% if forloop.last and object_list.has_next %}
+        <div class="book-card"
+            hx-get="{% url 'book:book-list-page' %}?page={{ object_list.next_page_number }}"
+            hx-trigger="revealed"
+            hx-swap="afterend"
+            hx-indicator="#spinner"
+            hx-headers='{"partial": "True"}'
+        >
+        {% else %}  
+        <div class="book-card">
+        
+        {% endif %}
+
+
+        <div class="card-body">
+            <a href="{% url 'book:book-detail-page' book.id %}" class="book-card-link">
+            <img src="{{ book.image.url }}" alt="Book Image">
+            <div class="book-card-title">
+                <h3> {{ book.title }} </h3> 
+            </div>
+            <p>Por <strong>{{ book.authors }}</strong></p>
+            <p>Edição em <strong>{{ book.language }}</strong></p>
+            <p>{{ book.category }} </p>
+            <p><i class="fa-solid fa-location-dot"></i> {{ book.owner.public_andress }}  </p>
+            </a> 
+        </div>
+
+        <div class="card-footer">
+            <a href="{% url 'trade:trade-index' book.id %}"><button class="btn-troca">Solicitar troca</button></a>
+        </div>
+
+    </div>
+
+{% endfor %}
