@@ -1,0 +1,11 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "clima",
+            "database": "C:\\Users\\joaog\\OneDrive\\Documentos\\PROJETOS\\CLIMA\\Flask\\instance\\clima-sqlite.db"
+        }
+    ]
+}

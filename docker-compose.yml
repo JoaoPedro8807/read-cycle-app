@@ -42,19 +42,19 @@ services:
     volumes:
       - psadmin_data:/var/lib/psadmin
 
-  
+  celery:
+    build:
+      context: .
 
-  # celery:
-  #   build:
-  #       context: .
-  #   volumes:
-  #     - .:/app
-  #   command: celery -A project worker -B --loglevel=info   
+    volumes:
+      - .:/app
+    command: celery -A project worker -B --loglevel=info   
 
-  #   depends_on:
-  #     - redis
-  #   env_file:
-  #     - ./dotenv_files/.env      
+    depends_on:
+      - redis
 
+    env_file:
+        - ./dotenv_files/.env     
+         
 volumes:
   psadmin_data:
