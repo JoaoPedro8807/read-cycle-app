@@ -44,7 +44,7 @@
 
 .card-item{
     margin-top: 100px;
-    width: auto;
+    width: 40%;
     display: flex;
     max-height: 50dvh;
     flex-direction: column;
@@ -99,7 +99,15 @@
 .btn-confirm{
     background-color: var(--color-1);
     color: white;
+    width: 80%;
 }
+.trade-item-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
 .btn-confirm:hover{
     background-color: #49773c;
     color: white;

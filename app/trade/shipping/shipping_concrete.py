@@ -29,5 +29,5 @@ class Shipping(ShippingAbstract):
     def finalizate_ship(self, *args, **kwargs):
         return self.shipping.finalizate_ship(*args, **kwargs)
     
-    def calculate_price_shipping(self, *args, **kwargs):
+    def calculate_price_shipping(self, *args, **kwargs) -> float:
         return self.shipping.calculate_price_shipping(*args, **kwargs)

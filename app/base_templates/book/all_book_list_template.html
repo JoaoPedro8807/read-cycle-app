@@ -3,7 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'assets/book/css/all_book_list.css' %}">
 
-<div class="header">    
+<div class="header search-box-container">    
     <form   
         hx-get="{% url 'book:book-list-page' %}" 
         hx-target='.book-grid'
@@ -27,15 +27,17 @@
                         hx-target='.book-grid'
                         hx-swap="innerHTML"
                         hx-headers='{"partial": "True"}'
+                        id="filter-options-form"
                         >
-                  <ul class="nav-list">
+                    <ul class="nav-list">
                     
                         <li>{{ filter_form.form.category }} </li>
-                        <li>{{ filter_form.form.proximidade }}</li>
-                        <label for="id_proximidade" class="text-center pt-2">Livros próximos</label> 
+                        <li>
+                            {{ filter_form.form.proximidade }} <label for="id_proximidade" class="text-center pt-2">Livros próximos</label> 
+                        </li>
                         <input type="hidden" id="direction">
-
-                        {{ filter_form.form.language }}
+                        <li> {{ filter_form.form.language }} </li>
+                        
 
                         <input type="submit" value="Filtrar" class="filter-submit p-4 mt-5" id="filter-btn">
                     </ul>

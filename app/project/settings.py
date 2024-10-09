@@ -1,5 +1,5 @@
 from pathlib import Path
-import os
+import os, ssl
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'book',
     'trade',
     'template_partials',
+    'django_celery_beat',
     'django_filters',
 
 ]
@@ -36,7 +37,7 @@ AUTHENTICATION_BACKENDS = [
 AUTH_USER_MODEL = 'main.UserModel'
 
 LOGIN_URL = 'main:login-page'  
-LOGIN_REDIRECT_URL = 'main:home-page'  
+LOGIN_REDIRECT_URL = 'main:home-page'   
 LOGOUT_REDIRECT_URL = 'main:login-page'  
 
 AUTHENTICATION_BACKENDS = [
@@ -130,6 +131,30 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
 
+
+
+#celery configuration
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
+
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Sao_Paulo'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+
+
+#email configuration
+
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND') # tentar cxom o do hl se der erro
+EMAIL_HOST = os.getenv('EMAIL_HOST', '')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', True)
+EMAIL_USE_SSL = False    
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '#')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '#')
 
 
 #default params app vars:

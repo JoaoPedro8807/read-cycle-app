@@ -42,7 +42,7 @@ class PointsTradePayment(PaymentAbstract):
 
     def validate_payment(self, *args, **kwargs):
         ...
-        PaymentValidation(data=kwargs)
+        PaymentValidation(data=self)
 
         #chamar aqui ou em outro lugar a task para enviar notificacao 
         #o book vai poder ter mais de uma requisição, então quando a uma requisição for aceita, as outras devem ser exlcuidas

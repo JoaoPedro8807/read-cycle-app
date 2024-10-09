@@ -1,0 +1,93 @@
+{% load is_model_object %}                                                                             
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova atulização de troca.</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        section{
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+            color: #666;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+        .room-details {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .room-details strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .text-center{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="header-section">
+        <h1>Olá, {{ user_name }} </h1>
+        <h3>O seu livro <span><strong> {{ book_trade }} </strong></span>Uma nova atulização na troca.   </h3>
+
+        <p>Solicitação de troca requisitada por {{ request_owner_name }} </p>
+
+    </section>
+    
+    <section class="content-section" id="content">
+        <div class="offer-container container">
+            <h3>Informações da troca:</h3>
+            
+            <div class="offer">
+                <h4>A troca agora está em {{ trade_status }}  </h4>
+            </div>
+
+            <div class="offer">
+                Lembre-se, a troca irá se expirar até {{ time_to_finish }}, caso não seja finalizada.
+            </div>
+        </div>  
+
+        <p>Confira mais detalhes sobre a troca clicando no link abaixo:</p>
+        <a href="{{ link_to_confirmation }}" >Confirmar troca</a>
+
+        <p>Para recusar a troca, basta ir em <strong>Minhas trocas</strong> e clicar em <strong>Desistir da troca</strong></p>
+    </section>
+    <footer class="footer">
+        <div class="footer">
+            <p>&copy; {{ current_year }} Read Cycle</p>
+        </div>
+    </footer>
+</body>
+</html>

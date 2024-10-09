@@ -10,6 +10,8 @@ from django.conf import settings
 from decimal import Decimal
 from ..validations import TradeValidation
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http.request import HttpRequest
+from django.db import transaction
 
 class TradeView(LoginRequiredMixin, View):
     def get_book(self, book_id):
@@ -22,21 +24,6 @@ class TradeView(LoginRequiredMixin, View):
             return CreateTradeForm(user=user, data=post_data)
         return CreateTradeForm(user=user)
 
-    def create_trade(
-            self, 
-            book, 
-            user, 
-            payment_method_key, 
-            shipping_method_key,
-            *args,
-            **kwargs ):
-        return TradeModel.objects.create(
-            book=book,
-            user=user,
-            payment_method=payment_method_key,
-            shipping_method=shipping_method_key,
-            **kwargs
-        )
     
     def get_payment_method(self, method_key:str ) -> PaymentAbstract:
         return PaymentFactory.create_payment_method(
@@ -82,29 +69,29 @@ class TradeView(LoginRequiredMixin, View):
         points_offer = offert['points_offer']
         book_offer = offert['book_offer']
 
-        try:         
-            TradeValidation(user=self.request.user, book=book, book_offer=book_offer)
-            trade = self.create_trade(  
-                book=book, 
-                user=request.user, 
-                payment_method_key=payment_method_key,
-                shipping_method_key=shipping_method_key,
-                book_offer=book_offer,
-                points_offer=points_offer
+        try:
+            with transaction.atomic(): #already rollback trnasaction when an error was raised
+                TradeValidation(user=self.request.user, book=book, book_offer=book_offer)
+                trade = TradeModel.objects.create(
+                    book=book,
+                    user=self.request.user,
+                    payment_method=payment_method_key,
+                    shipping_method=shipping_method_key,
+                    book_offer=book_offer,
+                    points_offer=points_offer,
                 )
-            payment_method = self.get_payment_method(trade.payment_method)
-            payment = Payment(
-                payment_method=payment_method,
-                user=self.request.user, 
-                book=trade.book,
-                trade=trade)
-            payment.process_payment()
-            messages.success(self.request, 'Troca solicitada com sucesso, seus pontos já foramd descontados.\
-                Agora aguarde o propietário confirmar a troca, caso ele não aceite dentro de 7 dias, seus pontos serão retornandos.')
-            return redirect('trade:trade-confirmate', id=trade.id)
+                payment_method = self.get_payment_method(trade.payment_method)
+                payment = Payment(
+                    payment_method=payment_method,
+                    user=self.request.user, 
+                    book=trade.book,
+                    trade=trade)
+                payment.process_payment()
+                messages.success(self.request, 'Troca solicitada com sucesso, seus pontos já foramd descontados.\
+                    Agora aguarde o propietário confirmar a troca, caso ele não aceite dentro de 7 dias, seus pontos serão retornandos.')
+                return redirect('trade:trade-confirmate', id=trade.id)
 
-        except Exception as err:
-            print('ERROR NO PROCESS: ', err)
+        except Exception as err: 
             messages.error(request=request, message=f'Erro ao processar o pagamento: {str(err)}')
             return redirect('trade:trade-index', id=kwargs.get('id'))
         
@@ -116,7 +103,7 @@ class ConfirmationTradeView(LoginRequiredMixin, View):
             TradeModel.objects.all().select_related('book', 'user'),
             id=trade_id
         )
-    def get_shipping_method(self, trade: TradeModel, request_user, post_code: str = None) -> dict:
+    def get_shipping_method(self, trade: TradeModel, request_user: HttpRequest, post_code: str = None) -> dict:
         params = {
             '_from': trade.book.owner.zip_code,
             '_to': trade.user.zip_code,
@@ -146,7 +133,7 @@ class ConfirmationTradeView(LoginRequiredMixin, View):
             **get_shipping['params'])
         
         estimate_shipping_price = shipping.calculate_price_shipping()
-
+        print('estimate_shipping_price: ', estimate_shipping_price)
         payment_method = self.get_payment_method(trade.payment_method)
         payment = Payment(
             payment_method=payment_method,

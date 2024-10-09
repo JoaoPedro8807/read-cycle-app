@@ -28,24 +28,26 @@ def delete_trade_view(request, pk):
         trade=trade)    
     payment.cancel_payment()
 
-    trade.delete() # ----------------->             <-------------------------------------
+    trade.delete() 
 
     new_list = zip_trade_payment_objects(
         trades=TradeModel.objects.user_trades_requests(request.user),
         user=request.user
     )
+
     template_render = {
         'default': 'trade/render_trade.html',
         'profile': 'main/render_user_trades_table.html',
     }
+    
     template_flag = request.headers.get('X-TEMPLATE', 'default')
     template = template_render.get(template_flag)
-
+    print('TEMPLATE INDO PRO RENDER: ', template)
     return render(
         request,
         template,
         context={
-            'itens': new_list, 
+            'trades': new_list, 
             'partial': True
         }
     )

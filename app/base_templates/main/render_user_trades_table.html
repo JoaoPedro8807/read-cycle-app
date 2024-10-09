@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody class="datatable-body">
-        {% for item in itens %}
+        {% for item in trades %}
             {% with trade=item.0 payment=item.1 shipping=item.2 %}
                 <tr class="mb-1 trades-table-row" data-index="{{ forloop.counter0 }}">
                     <td scope="row" class="trade-index">

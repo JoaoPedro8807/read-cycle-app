@@ -30,7 +30,7 @@ class UserProfileView(LoginRequiredMixin, View):
         user_form = UserInfoForm(instance=self.request.user)
         context = {
             'books': books,
-            'itens': trade_payment_zip,
+            'trades': trade_payment_zip,
             'user_form': user_form,
             'user_stats': user_stats
         }

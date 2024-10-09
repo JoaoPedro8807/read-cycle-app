@@ -26,6 +26,7 @@ def get_user_avatar_random():
 
 
 class UserModel(AbstractBaseUser,  BaseUserAbstract, PermissionsMixin):
+
     """ rewrithen default user model from django, to add some new fields and data """ 
 
     objects = UserManager()

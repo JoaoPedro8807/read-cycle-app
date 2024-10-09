@@ -35,8 +35,10 @@ class LoginView(View):
         authenticated = user_auth.make_authenticate(request=request, email=email, password=password)
 
         if authenticated:
+            print('LOGIN SUCCESS')
             return redirect(reverse('main:home-page'))
         else:
+            print('CREDENTIAL ERROR')
             messages.error(request=request, message='Credenciais inválidas')
             return redirect('main:login-page')
 
@@ -62,7 +64,10 @@ class CreateUser(CreateView):
 
     def form_invalid(self, form: BaseModelForm) -> HttpResponse:
         invalid = super().form_invalid(form)
-        print('form: ', form, form.errors)
+        print('form: ', dir(form.errors), form.errors.get_json_data())
+        json_error = form.errors.get_json_data()
+        error_message = json_error.get('__all__')[0].values()
+        messages.error(request=self.request, message=f'Erro ao criar usuário: {error_message}')
         return invalid
 
 class EditeUserView(View, ModelFormMixin, LoginRequiredMixin):
