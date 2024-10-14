@@ -77,7 +77,7 @@ solitação por uma troca de livro
 
 
 
-Eu ainda estou desenvolvendo algumas features novas e atulizando o projeto, então sinta-se à vontade para sujestões.
+Eu ainda estou desenvolvendo algumas features novas e atulizando o projeto, então sinta-se à vontade para sugestão.
 
 
 
